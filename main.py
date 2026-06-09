@@ -57,6 +57,38 @@ def main():
 
     print()
 
+    # ── Verify Account Age ──────────────────────────────────────
+    print("Checking account validity...")
+    if not client.check_account_age(min_days=3):
+        print("x Account validation failed!")
+        sys.exit(1)
+    print()
+
+    # ── Check and Enable 2FA ────────────────────────────────────
+    print("Checking 2FA status...")
+    twofa_status = client.check_2fa_enabled()
+    
+    if twofa_status is False:
+        # Enable 2FA
+        print("Setting up 2FA...")
+        twofa_result = client.enable_2fa_and_get_secrets()
+        if twofa_result:
+            # Save account details
+            client.save_account_details(twofa_result)
+            print(f"\n2FA Secret: {twofa_result['secret']}")
+            print("Recovery Codes:")
+            for code in twofa_result['recovery_codes']:
+                print(f"  {code}")
+        else:
+            print("x 2FA setup failed!")
+            sys.exit(1)
+    elif twofa_status is True:
+        print("  ✓ 2FA already enabled")
+    else:
+        print("  x Cannot determine 2FA status")
+        sys.exit(1)
+    print()
+
     # ── Run Steps ──────────────────────────────────────────────
     updater = ProfileUpdater(client)
     success = updater.run()

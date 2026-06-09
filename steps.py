@@ -178,24 +178,60 @@ class ProfileUpdater:
         resp = self.client.get("/settings/profile")
         soup = BeautifulSoup(resp.text, "html.parser")
 
-        print("  Downloading avatar...")
+        # If an avatar already exists, skip (user requested skip when already set)
+        avatar_img = soup.find("img", class_=re.compile(r"avatar(-user)?")) or soup.find("img", alt=True)
+        if avatar_img:
+            src = (avatar_img.get("src") or "").strip()
+            if src:
+                print("  Already set: avatar present")
+                print("  Skipped")
+                return True
 
-        # Download a random portrait photo matching gender
-        gender = "men" if self.profile.get("gender", "male") == "male" else "women"
-        num = random.randint(1, 99)
-        avatar_url = f"https://randomuser.me/api/portraits/{gender}/{num}.jpg"
+        print("  Generating avatar from facestudio.app (fallback to randomuser.me)...")
+
+        img_data = None
+        img_name = "avatar.jpg"
+
+        # Attempt Face Studio API first (facestud.io/v1/generate);
+        # on any failure fallback to randomuser.me
+        gender_rr = "men" if self.profile.get("gender", "male") == "male" else "women"
+        gender_api = "male" if self.profile.get("gender", "male") == "male" else "female"
+        facestudio_api = "https://facestud.io/v1/generate"
+        # Use the API key exactly as provided (including trailing '!')
+        api_key = "K5IovvyX9v9RxnBsV6FxQ0yvaAPkBNjO!"
+
+        params = {
+            "gender": gender_api,
+            "ethnicity": "southeast_asian",
+            "format": "jpeg",
+            "resolution": "512",
+        }
+        headers_api = {"Authorization": f"Token {api_key}"}
 
         try:
-            img_resp = requests.get(avatar_url, timeout=15)
-            if img_resp.status_code != 200 or len(img_resp.content) < 100:
-                print("  x Avatar download failed")
-                return False
+            img_resp = requests.get(facestudio_api, headers=headers_api, params=params, timeout=60)
+            if img_resp.status_code == 200 and img_resp.content and len(img_resp.content) > 100:
+                img_data = img_resp.content
+            else:
+                print(f"  • facestudio API returned: {img_resp.status_code}")
         except Exception as e:
-            print(f"  x Avatar download error: {e}")
-            return False
+            print(f"  • facestudio request error: {e}")
 
-        img_data = img_resp.content
-        img_name = "avatar.jpg"
+        # Fallback to randomuser.me if facestudio did not return a usable image
+        if not img_data:
+            try:
+                print("  • Falling back to randomuser.me")
+                num = random.randint(1, 99)
+                avatar_url = f"https://randomuser.me/api/portraits/{gender}/{num}.jpg"
+                img_download = requests.get(avatar_url, timeout=15)
+                if img_download.status_code == 200 and len(img_download.content) >= 100:
+                    img_data = img_download.content
+                else:
+                    print("  x Fallback image download failed")
+                    return False
+            except Exception as e:
+                print(f"  x Avatar download error: {e}")
+                return False
 
         fa = soup.find("file-attachment", class_="js-upload-avatar-image")
         if not fa:
