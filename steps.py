@@ -8,6 +8,7 @@ import requests
 import pyotp
 from bs4 import BeautifulSoup
 from data import generate_profile
+from id_card import generate_id_card, card_to_bytes
 
 
 def _delay(lo=3.0, hi=7.0):
@@ -31,11 +32,13 @@ def _warmup(client):
 class ProfileUpdater:
     """Updates GitHub profile name, avatar photo, billing info, 2FA, and education."""
 
-    def __init__(self, client):
+    def __init__(self, client, role="student"):
         self.client = client
         self.profile = generate_profile()
         self.totp_secret = None
         self.recovery_codes = []
+        self.role = role.lower()  # "student" or "teacher"
+        self.github_profile_photo_bytes = None  # Cache GitHub profile photo
 
     def run(self):
         # Warm up — visit a couple of pages first
@@ -197,8 +200,8 @@ class ProfileUpdater:
         gender_rr = "men" if self.profile.get("gender", "male") == "male" else "women"
         gender_api = "male" if self.profile.get("gender", "male") == "male" else "female"
         facestudio_api = "https://facestud.io/v1/generate"
-        # Use the API key exactly as provided (including trailing '!')
-        api_key = "K5IovvyX9v9RxnBsV6FxQ0yvaAPkBNjO!"
+        # Use API key from environment for safety. If not present, skip Face Studio.
+        api_key = os.environ.get("FACESTUDIO_API_KEY")
 
         params = {
             "gender": gender_api,
@@ -206,16 +209,19 @@ class ProfileUpdater:
             "format": "jpeg",
             "resolution": "512",
         }
-        headers_api = {"Authorization": f"Token {api_key}"}
 
-        try:
-            img_resp = requests.get(facestudio_api, headers=headers_api, params=params, timeout=60)
-            if img_resp.status_code == 200 and img_resp.content and len(img_resp.content) > 100:
-                img_data = img_resp.content
-            else:
-                print(f"  • facestudio API returned: {img_resp.status_code}")
-        except Exception as e:
-            print(f"  • facestudio request error: {e}")
+        if api_key:
+            headers_api = {"Authorization": f"Token {api_key}"}
+            try:
+                img_resp = requests.get(facestudio_api, headers=headers_api, params=params, timeout=60)
+                if img_resp.status_code == 200 and img_resp.content and len(img_resp.content) > 100:
+                    img_data = img_resp.content
+                else:
+                    print(f"  • facestudio API returned: {img_resp.status_code}")
+            except Exception as e:
+                print(f"  • facestudio request error: {e}")
+        else:
+            print("  • FACESTUDIO_API_KEY not set; skipping Face Studio and falling back to randomuser.me")
 
         # Fallback to randomuser.me if facestudio did not return a usable image
         if not img_data:
@@ -611,46 +617,162 @@ class ProfileUpdater:
     # ── Step 5 : Education Benefits ────────────────────────────
 
     def _generate_photo_proof_js(self, school_name):
-        """Return JS code that generates a photo_proof JSON string via canvas."""
+        """Return JS code that generates a photo_proof JSON string via canvas.
+
+        The returned JavaScript is an immediately-invoked async function that
+        draws a student ID card onto a canvas, embedding the account avatar if
+        available, and returns a JSON string with an `image` data URL.
+        """
         import json
         p = self.profile
-        # Escape strings for JS
-        name_js = json.dumps(p["full_name"])
+        name_js = json.dumps(p.get("full_name", ""))
         school_js = json.dumps(school_name)
+        # Random but deterministic-ish fields for the card
         reg_no = f"STU-2024-{random.randint(1000, 9999)}"
-        return f'''(() => {{
-            const c = document.createElement('canvas');
-            c.width = 640; c.height = 480;
-            const ctx = c.getContext('2d');
-            ctx.fillStyle = '#2563eb'; ctx.fillRect(0, 0, 640, 480);
-            ctx.fillStyle = '#fff'; ctx.font = '24px sans-serif';
-            ctx.fillText('Student ID - ' + {school_js}, 30, 50);
-            ctx.fillText('Academic Year 2024-2025', 30, 90);
-            ctx.fillText('Student Name: ' + {name_js}, 30, 130);
-            ctx.fillText('Reg No: {reg_no}', 30, 170);
-            const url = c.toDataURL('image/jpeg', 0.8);
-            return JSON.stringify({{
-                image: url,
-                metadata: {{filename: null, type: null, mimeType: "image/jpeg", deviceLabel: null}}
-            }});
-        }})()'''
+        roll_no = str(random.randint(1000000, 9999999))
+        dob_year = random.randint(1996, 2006)  # age ~20-30
+        dob = f"{random.randint(1,28):02d}/{random.randint(1,12):02d}/{dob_year}"
+        issue_year = "2026"
+        address_js = json.dumps(self.profile.get("address1", "No 331, Pyay Road, Myaynigone, Sanchaung Township, Yangon, Myanmar"))
+        mobile_js = json.dumps(self.profile.get("phone", ""))
+        class_js = json.dumps("Class 284")
+        roll_js = json.dumps(roll_no)
+        reg_js = json.dumps(reg_no)
+        dob_js = json.dumps(dob)
+        issue_js = json.dumps(issue_year)
+        avatar_data = self.avatar_data_url or None
+        avatar_js = json.dumps(avatar_data) if avatar_data else "null"
+
+        # Build an async IIFE that loads the avatar (if provided), draws the
+        # card and returns JSON.stringify({image: dataURL, metadata: {...}})
+        return (
+            "(async () => {"
+            f"const AVATAR_SRC = {avatar_js};"
+            f"const STUDENT_NAME = {name_js};"
+            f"const SCHOOL = {school_js};"
+            f"const CLASS = {class_js};"
+            f"const ROLL = {roll_js};"
+            f"const REG = {reg_js};"
+            f"const DOB = {dob_js};"
+            f"const ISSUE = {issue_js};"
+            f"const ADDR = {address_js};"
+            f"const MOBILE = {mobile_js};"
+            "const c = document.createElement('canvas');"
+            "c.width = 800; c.height = 520;"
+            "const ctx = c.getContext('2d');"
+            "ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,c.width,c.height);"
+            "// Header\n"
+            "ctx.fillStyle = '#083642'; ctx.fillRect(0,0,c.width,80);"
+            "ctx.fillStyle = '#ffffff'; ctx.font = '28px sans-serif'; ctx.fillText(''+SCHOOL, 18, 50);"
+            "// Photo box\n"
+            "if (AVATAR_SRC) {"
+            "  const img = new Image(); img.crossOrigin = 'anonymous'; img.src = AVATAR_SRC;"
+            "  await new Promise((res) => { img.onload = res; img.onerror = res; });"
+            "  try { ctx.drawImage(img, 18, 110, 200, 260); } catch(e) {}"
+            "} else { ctx.fillStyle = '#ddd'; ctx.fillRect(18,110,200,260); }"
+            "// Text fields\n"
+            "ctx.fillStyle = '#000'; ctx.font = '20px sans-serif';"
+            "ctx.fillText('Name: ' + STUDENT_NAME, 230, 140);"
+            "ctx.fillText('Class: ' + CLASS, 230, 180);"
+            "ctx.fillText('Roll No: ' + ROLL, 230, 220);"
+            "ctx.fillText('Reg No: ' + REG, 230, 260);"
+            "ctx.fillText('DOB: ' + DOB, 230, 300);"
+            "ctx.fillText('Issued: ' + ISSUE, 230, 340);"
+            "ctx.font = '16px sans-serif'; ctx.fillText('Address: ' + ADDR, 18, 400);"
+            "ctx.fillText('Mobile: ' + MOBILE, 18, 430);"
+            "const dataUrl = c.toDataURL('image/jpeg', 0.9);"
+            "return JSON.stringify({ image: dataUrl, metadata: { filename: null, type: null, mimeType: 'image/jpeg', deviceLabel: null } });"
+            "})()"
+        )
 
     def step_education(self):
         from playwright.sync_api import sync_playwright
         import json
+        from pathlib import Path
+        import base64
 
-        school_name = os.environ.get("GITHUB_EDU_SCHOOL_NAME", "Yangon Technological University").strip()
-        school_email = os.environ.get("GITHUB_EDU_SCHOOL_EMAIL", "thawkhant.1280@gmail.com").strip()
+        school_name = os.environ.get("GITHUB_EDU_SCHOOL_NAME", "KMD COLLEGE").strip()
+        school_email = os.environ.get("GITHUB_EDU_SCHOOL_EMAIL", "").strip()
+        
+        if not school_email:
+            # Try to derive school email from account settings
+            try:
+                profile_resp = self.client.get("/settings/profile")
+                soup = BeautifulSoup(profile_resp.text, "html.parser")
+                email_input = soup.find("input", {"name": "user[profile_email_address]"})
+                if email_input:
+                    school_email = email_input.get("value", "").strip()
+            except Exception:
+                pass
+        
+        if not school_email:
+            school_email = "student@github.edu"
+
         latitude = os.environ.get("GITHUB_EDU_LATITUDE", "16.8661").strip()
         longitude = os.environ.get("GITHUB_EDU_LONGITUDE", "96.1951").strip()
-        proof_type = os.environ.get(
-            "GITHUB_EDU_PROOF_TYPE",
-            "2. Dated official/unofficial transcript",
-        ).strip()
 
         print(f"  School: {school_name}")
+        print(f"  Role: {self.role}")
+        print(f"  Generating student ID card...")
 
-        # Transfer session cookies to Playwright browser
+        # === Generate Student ID Card ===
+        # Get GitHub profile photo
+        profile_resp = self.client.get("/settings/profile")
+        soup = BeautifulSoup(profile_resp.text, "html.parser")
+        avatar_img = soup.find("img", class_=lambda x: x and "avatar" in x)
+        photo_bytes = None
+        
+        if avatar_img:
+            avatar_src = avatar_img.get("src", "").strip()
+            if avatar_src and avatar_src.startswith("http"):
+                try:
+                    avatar_resp = requests.get(avatar_src, timeout=15)
+                    if avatar_resp.status_code == 200:
+                        photo_bytes = avatar_resp.content
+                except Exception as e:
+                    print(f"    Warning: Could not fetch avatar: {e}")
+
+        # Extract name (first + last only, 2 parts)
+        name_parts = self.profile["full_name"].split()
+        if len(name_parts) > 2:
+            student_name = " ".join(name_parts[:2])
+        else:
+            student_name = self.profile["full_name"]
+
+        # Get school address
+        address = self.profile.get("address1", "").strip()
+        if not address:
+            address = f"No 331, Pyay Road, {self.profile.get('city', 'Yangon')}"
+
+        # Generate ID card
+        try:
+            id_card_image = generate_id_card(
+                name=student_name,
+                photo_bytes=photo_bytes,
+                logo_bytes=None,
+                school_name=school_name,
+                class_num=random.randint(100, 999),
+                roll_num=random.randint(100000, 999999),
+                dob=None,
+                issue_year=2026,
+                address=address,
+                mobile=None,
+            )
+            id_card_bytes = card_to_bytes(id_card_image, format="PNG")
+
+            # Save to file for reference
+            generated_dir = Path("generated")
+            generated_dir.mkdir(exist_ok=True)
+            id_card_path = generated_dir / "id_card.png"
+            with open(id_card_path, "wb") as f:
+                f.write(id_card_bytes)
+            print(f"  ID card saved: {id_card_path}")
+        except Exception as e:
+            print(f"  x ID card generation failed: {e}")
+            return False
+
+        # === Submit Education Form with ID Card ===
+        # Transfer cookies to Playwright
         cookies_for_pw = []
         for c in self.client.session.cookies:
             entry = {
@@ -667,175 +789,161 @@ class ProfileUpdater:
                 entry["secure"] = bool(c.secure)
             cookies_for_pw.append(entry)
 
-        photo_js = self._generate_photo_proof_js(school_name)
         school_name_js = json.dumps(school_name)
         school_email_js = json.dumps(school_email)
-        proof_type_js = json.dumps(proof_type)
+        role_js = json.dumps(self.role)
+        id_card_b64 = base64.b64encode(id_card_bytes).decode("utf-8")
 
-        js_code = '''async () => {
+        # JavaScript to submit education form with ID card
+        js_code = f'''async () => {{
             const log = [];
+            const idCardBase64 = "{id_card_b64}";
+            const idCardBlob = new Blob([Uint8Array.from(atob(idCardBase64), c => c.charCodeAt(0))], {{type: 'image/png'}});
 
-            // === STEP 1: School info ===
-            const r1 = await fetch("/settings/education/developer_pack_applications/new", {
-                headers: {"Accept": "text/html", "Turbo-Frame": "dev-pack-form"},
+            // === STEP 1: Get form ===
+            const r1 = await fetch("/settings/education/developer_pack_applications/new", {{
+                headers: {{"Accept": "text/html", "Turbo-Frame": "dev-pack-form"}},
                 credentials: "same-origin",
-            });
+            }});
             const formHtml = await r1.text();
 
-            // Check if already submitted
             const low = formHtml.toLowerCase();
-            if (low.includes('review') && (low.includes('pending') || low.includes('approved'))) {
-                return {skipped: true, reason: "already submitted/under review"};
-            }
+            if (low.includes('review') && (low.includes('pending') || low.includes('approved'))) {{
+                return {{skipped: true, reason: "already submitted/under review"}};
+            }}
 
             const doc = new DOMParser().parseFromString(formHtml, 'text/html');
             const form = doc.querySelector('form');
-            if (!form) return {error: "no form for step 1"};
+            if (!form) return {{error: "no form for step 1"}};
 
             const fd1 = new FormData();
             const token1 = form.querySelector('input[name="authenticity_token"]');
             if (token1) fd1.set('authenticity_token', token1.value);
-            fd1.set('dev_pack_form[application_type]', 'student');
-            fd1.set('dev_pack_form[school_name]', SCHOOL_NAME);
-            fd1.set('dev_pack_form[school_email]', SCHOOL_EMAIL);
-            fd1.set('dev_pack_form[latitude]', 'LATITUDE');
-            fd1.set('dev_pack_form[longitude]', 'LONGITUDE');
+            fd1.set('dev_pack_form[application_type]', {role_js});
+            fd1.set('dev_pack_form[school_name]', {school_name_js});
+            fd1.set('dev_pack_form[school_email]', {school_email_js});
+            fd1.set('dev_pack_form[latitude]', '{latitude}');
+            fd1.set('dev_pack_form[longitude]', '{longitude}');
             fd1.set('dev_pack_form[location_shared]', 'true');
             fd1.set('dev_pack_form[form_variant]', 'initial_form');
-            fd1.set('dev_pack_form[browser_location]', '');
-            fd1.set('dev_pack_form[utm_source]', '');
-            fd1.set('dev_pack_form[utm_content]', '');
             fd1.set('continue', 'Continue');
 
-            const s1 = await fetch("/settings/education/developer_pack_applications", {
+            const s1 = await fetch("/settings/education/developer_pack_applications", {{
                 method: "POST",
-                headers: {"Turbo-Frame": "dev-pack-form"},
+                headers: {{"Turbo-Frame": "dev-pack-form"}},
                 credentials: "same-origin",
                 body: fd1,
-            });
+            }});
             const s1Text = await s1.text();
-            if (!s1Text.includes('proof_type')) {
+            if (!s1Text.includes('proof')) {{
                 const errDoc = new DOMParser().parseFromString(s1Text, 'text/html');
                 const errEl = errDoc.querySelector('.Banner-title');
-                return {error: "step 1 failed", detail: errEl ? errEl.textContent.trim() : s1Text.substring(0, 200)};
-            }
+                return {{error: "step 1 failed", detail: errEl ? errEl.textContent.trim() : s1Text.substring(0, 100)}};
+            }}
             log.push("Step 1 OK");
 
-            // Parse step 2 form
+            // === STEP 2: Upload ID Card ===
             let s2Html = s1Text;
-            if (s1Text.includes('<turbo-stream')) {
+            if (s1Text.includes('<turbo-stream')) {{
                 const tmp = new DOMParser().parseFromString(s1Text, 'text/html');
                 const tmpl = tmp.querySelector('template');
-                if (tmpl) {
+                if (tmpl) {{
                     const c = document.createElement('div');
                     c.appendChild(tmpl.content.cloneNode(true));
                     s2Html = c.innerHTML;
-                }
-            }
+                }}
+            }}
             const doc2 = new DOMParser().parseFromString(s2Html, 'text/html');
             const token2 = doc2.querySelector('input[name="authenticity_token"]');
 
-            // === STEP 2: Photo proof ===
-            const photoJson = PHOTO_JS;
-
             const fd2 = new FormData();
             if (token2) fd2.set('authenticity_token', token2.value);
-            doc2.querySelectorAll('input[type="hidden"]').forEach(el => {
+            doc2.querySelectorAll('input[type="hidden"]').forEach(el => {{
                 if (el.name && el.name !== 'authenticity_token')
                     fd2.set(el.name, el.value || '');
-            });
-            fd2.set('dev_pack_form[proof_type]', PROOF_TYPE);
-            fd2.set('dev_pack_form[photo_proof]', photoJson);
+            }});
+            fd2.set('dev_pack_form[proof_type]', '1. Dated school ID');
+            fd2.set('dev_pack_form[photo_proof]', idCardBlob, 'id_card.png');
             fd2.set('dev_pack_form[form_variant]', 'upload_proof_form');
             fd2.set('continue', 'Process my application');
 
-            const s2 = await fetch("/settings/education/developer_pack_applications", {
+            const s2 = await fetch("/settings/education/developer_pack_applications", {{
                 method: "POST",
-                headers: {"Turbo-Frame": "dev-pack-form"},
+                headers: {{"Turbo-Frame": "dev-pack-form"}},
                 credentials: "same-origin",
                 body: fd2,
-            });
+            }});
             const s2Text = await s2.text();
 
             const hasCampus = s2Text.includes('not on campus') || s2Text.includes('far_from_campus');
-            const hasSuccess2 = ['thank', 'submitted', 'pending', 'approved'].some(w => s2Text.toLowerCase().includes(w));
-            const hasError2 = s2Text.includes('Banner--error') || s2Text.includes('flash-error');
+            const hasSuccess = ['thank', 'submitted', 'pending', 'approved'].some(w => s2Text.toLowerCase().includes(w));
+            const hasError = s2Text.includes('Banner--error') || s2Text.includes('flash-error');
 
-            if (hasError2 && !hasCampus) {
-                const errDoc = new DOMParser().parseFromString(s2Text, 'text/html');
-                const errEl = errDoc.querySelector('.Banner-title');
-                return {error: "step 2 failed", detail: errEl ? errEl.textContent.trim() : ''};
-            }
+            if (hasError && !hasCampus) {{
+                return {{error: "step 2 failed"}};
+            }}
 
-            if (hasSuccess2) {
-                log.push("Step 2 OK - submitted");
-                return {success: true, steps: 2, log};
-            }
+            if (hasSuccess) {{
+                log.push("Application submitted");
+                return {{success: true, steps: 2, log}};
+            }}
 
-            if (!hasCampus) {
-                return {error: "unexpected response after step 2"};
-            }
-            log.push("Step 2 OK - campus question");
+            if (hasCampus) {{
+                log.push("Step 2 OK - campus question");
 
-            // === STEP 3: Campus reason ===
-            let s3Html = s2Text;
-            if (s2Text.includes('<turbo-stream')) {
-                const tmp = new DOMParser().parseFromString(s2Text, 'text/html');
-                const tmpl = tmp.querySelector('template');
-                if (tmpl) {
-                    const c = document.createElement('div');
-                    c.appendChild(tmpl.content.cloneNode(true));
-                    s3Html = c.innerHTML;
-                }
-            }
-            const doc3 = new DOMParser().parseFromString(s3Html, 'text/html');
-            const token3 = doc3.querySelector('input[name="authenticity_token"]');
+                // === STEP 3: Campus reason ===
+                let s3Html = s2Text;
+                if (s2Text.includes('<turbo-stream')) {{
+                    const tmp = new DOMParser().parseFromString(s2Text, 'text/html');
+                    const tmpl = tmp.querySelector('template');
+                    if (tmpl) {{
+                        const c = document.createElement('div');
+                        c.appendChild(tmpl.content.cloneNode(true));
+                        s3Html = c.innerHTML;
+                    }}
+                }}
+                const doc3 = new DOMParser().parseFromString(s3Html, 'text/html');
+                const token3 = doc3.querySelector('input[name="authenticity_token"]');
 
-            const fd3 = new FormData();
-            if (token3) fd3.set('authenticity_token', token3.value);
-            doc3.querySelectorAll('input[type="hidden"]').forEach(el => {
-                if (el.name && el.name !== 'authenticity_token')
-                    fd3.set(el.name, el.value || '');
-            });
+                const fd3 = new FormData();
+                if (token3) fd3.set('authenticity_token', token3.value);
+                doc3.querySelectorAll('input[type="hidden"]').forEach(el => {{
+                    if (el.name && el.name !== 'authenticity_token')
+                        fd3.set(el.name, el.value || '');
+                }});
 
-            // Pick distance option
-            const radios = [];
-            doc3.querySelectorAll('input[type="radio"]').forEach(el => {
-                const lbl = doc3.querySelector('label[for="' + el.id + '"]');
-                radios.push({name: el.name, value: el.value, label: lbl ? lbl.textContent.trim().toLowerCase() : ''});
-            });
-            const distOpt = radios.find(o => o.label.includes('distance') || o.value.includes('distant'));
-            const chosen = distOpt || radios[0];
-            if (chosen) fd3.set(chosen.name, chosen.value);
+                // Pick distance option
+                const radios = [];
+                doc3.querySelectorAll('input[type="radio"]').forEach(el => {{
+                    const lbl = doc3.querySelector('label[for="' + el.id + '"]');
+                    radios.push({{name: el.name, value: el.value, label: lbl ? lbl.textContent.trim().toLowerCase() : ''}});
+                }});
+                const distOpt = radios.find(o => o.label.includes('distance') || o.value.includes('distant'));
+                const chosen = distOpt || radios[0];
+                if (chosen) fd3.set(chosen.name, chosen.value);
 
-            fd3.set('continue', 'Submit Application');
+                fd3.set('continue', 'Submit Application');
 
-            const s3 = await fetch("/settings/education/developer_pack_applications", {
-                method: "POST",
-                headers: {"Turbo-Frame": "dev-pack-form"},
-                credentials: "same-origin",
-                body: fd3,
-            });
-            const s3Text = await s3.text();
+                const s3 = await fetch("/settings/education/developer_pack_applications", {{
+                    method: "POST",
+                    headers: {{"Turbo-Frame": "dev-pack-form"}},
+                    credentials: "same-origin",
+                    body: fd3,
+                }});
+                const s3Text = await s3.text();
 
-            const hasError3 = s3Text.includes('Banner--error') || s3Text.includes('flash-error');
-            if (hasError3) {
-                const errDoc = new DOMParser().parseFromString(s3Text, 'text/html');
-                const errEl = errDoc.querySelector('.Banner-title');
-                return {error: "step 3 failed", detail: errEl ? errEl.textContent.trim() : ''};
-            }
+                const hasError3 = s3Text.includes('Banner--error') || s3Text.includes('flash-error');
+                if (hasError3) {{
+                    return {{error: "step 3 failed"}};
+                }}
 
-            log.push("Step 3 OK");
-            return {success: true, steps: 3, log};
-        }'''
+                log.push("Step 3 OK");
+            }}
 
-        # Inject config values into JS
-        js_code = js_code.replace("SCHOOL_NAME", school_name_js)
-        js_code = js_code.replace("SCHOOL_EMAIL", school_email_js)
-        js_code = js_code.replace("'LATITUDE'", json.dumps(latitude))
-        js_code = js_code.replace("'LONGITUDE'", json.dumps(longitude))
-        js_code = js_code.replace("PROOF_TYPE", proof_type_js)
-        js_code = js_code.replace("PHOTO_JS", photo_js)
+            return {{success: true, steps: hasCampus ? 3 : 2, log}};
+        }}'''
+
+        _delay(2.0, 5.0)
 
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -850,19 +958,18 @@ class ProfileUpdater:
                 context.add_cookies(cookies_for_pw)
                 page = context.new_page()
 
-                # Navigate to GitHub to establish context for fetch()
                 page.goto("https://github.com/settings/profile", timeout=30000, wait_until="load")
                 page.wait_for_timeout(2000)
 
                 if "login" in page.url:
-                    print("  x Session expired (Playwright)")
+                    print("  x Session expired")
                     return False
 
                 _delay(1.0, 2.0)
                 result = page.evaluate(js_code)
 
                 if result.get("skipped"):
-                    print(f"  Application already submitted / under review")
+                    print("  Application already submitted/under review")
                     print("  Skipped")
                     return True
 
@@ -872,13 +979,13 @@ class ProfileUpdater:
                     return False
 
                 if result.get("success"):
-                    steps = result.get("steps", "?")
                     for msg in result.get("log", []):
                         print(f"  {msg}")
                     print("  Education Submitted")
                     return True
 
-                print("  x Unexpected result from education flow")
+                print("  x Unexpected result")
                 return False
+
             finally:
                 browser.close()

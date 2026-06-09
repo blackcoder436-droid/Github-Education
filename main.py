@@ -89,8 +89,21 @@ def main():
         sys.exit(1)
     print()
 
+    # ── Select Role ────────────────────────────────────────────
+    print("Select Your Role:")
+    print("  1. Student (default)")
+    print("  2. Teacher")
+    
+    role_choice = input("Choice (1-2, default 1): ").strip() or "1"
+    if role_choice == "2":
+        role = "teacher"
+    else:
+        role = "student"
+    print(f"Role: {role.upper()}")
+    print()
+
     # ── Run Steps ──────────────────────────────────────────────
-    updater = ProfileUpdater(client)
+    updater = ProfileUpdater(client, role=role)
     success = updater.run()
 
     if success:

@@ -391,6 +391,34 @@ class GitHubClient:
         except Exception:
             return None
 
+    def get_primary_email(self):
+        """Try to fetch the account's primary email from settings pages."""
+        try:
+            resp = self.get("/settings/emails")
+            if resp.status_code != 200:
+                return None
+            html = resp.text
+            # Find any email addresses in the page
+            import re
+            emails = re.findall(r'[\w\.-]+@[\w\.-]+\.\w+', html)
+            # Prefer non-github.com emails and unique list
+            seen = []
+            for e in emails:
+                if e.lower().endswith("@github.com"):
+                    continue
+                if e not in seen:
+                    seen.append(e)
+            if seen:
+                return seen[0]
+            # Fallback: look for an email input value
+            soup = BeautifulSoup(html, "html.parser")
+            inp = soup.find("input", {"type": "email"})
+            if inp and inp.get("value"):
+                return inp.get("value")
+            return None
+        except Exception:
+            return None
+
     def check_account_age(self, min_days=3):
         """Check if account is at least min_days old."""
         try:
