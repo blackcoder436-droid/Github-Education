@@ -1,0 +1,18 @@
+=== Downloading webcam chunks ===
+  13726 (1034 bytes): no hits
+  83465 (115953 bytes): no hits
+  90225 (54764 bytes): no hits
+  98131 (84750 bytes): no hits
+  7542 (95051 bytes): no hits
+  29434 (2812 bytes): no hits
+  2966 (6689 bytes): no hits
+  28839 (5508 bytes): no hits
+  49863 (3596 bytes): no hits
+  17383 (21750 bytes): no hits
+  68751 (3447 bytes): no hits
+  39371 (3855 bytes): no hits
+  34646 (5818 bytes): no hits
+  60481 (3206 bytes): no hits
+  63991 (2844 bytes): no hits
+  24729 (4117 bytes): no hits
+  22072: HTTP 404

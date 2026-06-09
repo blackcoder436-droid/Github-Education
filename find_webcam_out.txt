@@ -1,0 +1,13 @@
+JS files found: 0
+
+=== Chunk/import map references ===
+
+=== 'webcam' references ===
+  <div data-test-selector="webcam-upload"><link crossorigin="anonymous" media="all" rel="stylesheet" href="https:
+  mous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/webcam-upload.e66da9df6eb089e6.module.css" />
+    partial-name="webcam-upload"
+
+=== All link stylesheets ===
+  https://github.githubassets.com/assets/webcam-upload.e66da9df6eb089e6.module.css
+
+=== Main app bundles ===

@@ -1,0 +1,76 @@
+﻿=== Looking for setup key / secret ===
+Val: <button>[id] = dialog-show-two-factor-setup-verification-mashed-secret
+Val: <button>[data-show-dialog-id] = two-factor-setup-verification-mashed-secret
+Val: <dialog>[id] = two-factor-setup-verification-mashed-secret
+Val: <dialog>[aria-labelledby] = two-factor-setup-verification-mashed-secret-title
+Val: <dialog>[aria-describedby] = two-factor-setup-verification-mashed-secret-description
+Val: <h1>[id] = two-factor-setup-verification-mashed-secret-title
+Val: <button>[data-close-dialog-id] = two-factor-setup-verification-mashed-secret
+Val: <scrollable-region>[data-labelled-by] = two-factor-setup-verification-mashed-secret-title
+Val: <div>[data-target] = two-factor-setup-verification.mashedSecret
+
+=== Elements with 'key' or 'setup' in class/id ===
+  <span> class=['prc-TooltipV2-KeybindingHintContainer-Ymj-3', 'prc-TooltipV2-HasTextBefore-fdOXj'] text=gGthen  dD
+  <kbd> class=['prc-KeybindingHint-KeybindingHint-qpYIs', 'prc-Text-Text-9mHv3'] text=gGthen  dD
+  <span> class=['prc-TooltipV2-KeybindingHintContainer-Ymj-3', 'prc-TooltipV2-HasTextBefore-fdOXj'] text=s,/S,/
+  <kbd> class=['prc-KeybindingHint-KeybindingHint-qpYIs', 'prc-Text-Text-9mHv3'] text=s,/S,/
+  <span> class=['prc-TooltipV2-KeybindingHintContainer-Ymj-3', 'prc-TooltipV2-HasTextBefore-fdOXj'] text=gGthen  iI
+  <kbd> class=['prc-KeybindingHint-KeybindingHint-qpYIs', 'prc-Text-Text-9mHv3'] text=gGthen  iI
+  <span> class=['prc-TooltipV2-KeybindingHintContainer-Ymj-3', 'prc-TooltipV2-HasTextBefore-fdOXj'] text=gGthen  pP
+  <kbd> class=['prc-KeybindingHint-KeybindingHint-qpYIs', 'prc-Text-Text-9mHv3'] text=gGthen  pP
+  <span> class=['prc-TooltipV2-KeybindingHintContainer-Ymj-3', 'prc-TooltipV2-HasTextBefore-fdOXj'] text=gGthen  nN
+  <kbd> class=['prc-KeybindingHint-KeybindingHint-qpYIs', 'prc-Text-Text-9mHv3'] text=gGthen  nN
+  <svg> class=['octicon', 'octicon-passkey-fill'] text=
+  <svg> class=['octicon', 'octicon-key'] text=
+  <two-factor-setup-verification> id=two-factor-setup-verification-step text=Authenticator apps and browser extensions like
+        1Password,
+        Authy,
+  <button> id=dialog-show-two-factor-setup-verification-mashed-secret text=setup key
+  <dialog> id=two-factor-setup-verification-mashed-secret text=Your two-factor secret
+  <h1> id=two-factor-setup-verification-mashed-secret-title text=Your two-factor secret
+  <div> id=add-method-passkey-option text=Passkeys
+Configured
+
+
+
+            Passkeys are webauthn credentials that valida
+  <div> id=add-method-security-key-option text=Security keys
+Configured
+
+
+
+            Use your device with Touch ID, Windows H
+
+=== Data attributes ===
+  <a>[data-hotkey] = g d
+  <button>[data-hotkey] = s,/
+  <a>[data-hotkey] = g i
+  <a>[data-hotkey] = g p
+  <a>[data-hotkey] = g n
+  <query-builder>[data-filter-key] = :
+
+=== Web components / custom elements ===
+  <react-partial> partial-name=keyboard-shortcuts-dialog data-ssr=false data-attempted-ssr=false data-react-profiling=true
+  <query-builder> data-target=qbsearch-input.queryBuilder id=query-builder-query-builder-test data-filter-key=: data-view-component=true
+  <scrollable-region> data-labelled-by=two-factor-setup-verification-mashed-secret-title
+
+=== Script data ===
+  {"locale":"en","featureFlags":["a11y_status_checks_ruleset","actions_custom_images_public_preview_visibility","actions_custom_images_storage_billing_u
+
+=== App verify form (detailed) ===
+Found app verify form!
+  QR img: 
+
+=== Base32 near keywords ===
+  Near 'secret': ...ess_automated_browser_vitals","suppress_non_representative_vitals","viewscreen_sandbox","webp_support","workbench_store_readonly"],"login":"thawkhant1...
+  Near 'secret': ...ion-mashed-secret" type="button" data-view-component="true" class="Link--inTextBlock Button--link Button--medium Button"> <span class="Button-content"...
+  Near 'secret': ...class="Link--inTextBlock Button--link Button--medium Button"> <span class="Button-content"> <span class="Button-label">setup key</span> </span> </butt...
+  Near 'setup key': ...alog id="two-factor-setup-verification-mashed-secret" aria-modal="true" aria-labelledby="two-factor-setup-verification-mashed-secret-title" aria-descr...
+  Near 'secret': ...tup-verification-mashed-secret-title" aria-describedby="two-factor-setup-verification-mashed-secret-description" data-view-component="true" class="Ove...
+  Near 'secret': ...ation-mashed-secret-description" data-view-component="true" class="Overlay Overlay-whenNarrow Overlay--size-medium Overlay--motion-scaleFade Overlay--...
+  Near 'secret': ...="Overlay Overlay-whenNarrow Overlay--size-medium Overlay--motion-scaleFade Overlay--disableScroll"> <div data-view-component="true" class="Overlay-he...
+  Near 'secret': ... two-factor secret </h1> </div> <div class="Overlay-actionWrap"> <button data-close-dialog-id="two-factor-setup-verification-mashed-secret" aria-label...
+  Near 'secret': ...ass="Overlay-actionWrap"> <button data-close-dialog-id="two-factor-setup-verification-mashed-secret" aria-label="Close" aria-label="Close" type="butto...
+  Near 'secret': ...on" data-view-component="true" class="close-button Overlay-closeButton"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="1...
+  Near 'secret': ...omponent="true" class="Overlay-body p-0"> <div class="text-mono f5 tmp-p-3" data-target="two-factor-setup-verification.mashedSecret" ></div> </div> </...
+  Near 'Secret': ... </scrollable-region> </dialog></dialog-helper> to manually configure your authenticator app. </div> <h3 data-view-component="true" class="h5">Verify ...

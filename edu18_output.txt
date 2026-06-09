@@ -1,0 +1,35 @@
+Login: OK
+Step 1: 200
+Token2: nRUMa1itjY2M0BbiCt7F...
+
+=== All hidden inputs from step 2 form ===
+  authenticity_token = 'nRUMa1itjY2M0BbiCt7FY3u-WZfIegIypmKqkedIfXdEkagM97F9y1DkFKqDIm1dMZiJgfskKnmchCph'
+  dev_pack_form[proof_type] = 'NO_VALUE'
+  dev_pack_form[photo_proof] = 'NO_VALUE'
+  dev_pack_form[application_type] = 'student'
+  dev_pack_form[browser_location] = 'Yangon, Myanmar'
+  dev_pack_form[form_variant] = 'initial_form'
+  dev_pack_form[latitude] = '16.8661'
+  dev_pack_form[location_shared] = 'true'
+  dev_pack_form[longitude] = '96.1951'
+  dev_pack_form[school_email] = 'thawkhant.1280@gmail.com'
+  dev_pack_form[school_name] = 'SKT International College'
+  dev_pack_form[utm_content] = ''
+  dev_pack_form[utm_source] = ''
+  dev_pack_form[form_variant] = 'upload_proof_form'
+
+Photo: 5004 bytes, data URL: 6695 chars
+
+=== Test A: Dict POST ===
+  Error: 
+  Server returned: dev_pack_form[proof_type] = ''
+  Server returned: dev_pack_form[photo_proof] = ''
+
+=== Test B: JSON body ===
+  JSON POST: 422 Len: 9309
+  Response: Oh no · GitHubWhat‽Your browser did something unexpected. Please try again. If the error continues,
+        try disabling all browser extensions.Please contact us if the problem persists.Contact Suppo
+
+=== Test C: Multipart form ===
+  Multipart: 200 Len: 17366
+  Error: 

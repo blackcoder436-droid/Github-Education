@@ -1,0 +1,50 @@
+Login: OK
+
+=== Step 1 ===
+Step 1: 200
+Response headers:
+  Content-Type: text/vnd.turbo-stream.html; charset=utf-8
+  Set-Cookie: _gh_sess=yoT3rFvDEHqYLE5NqPrLbP%2FSWL%2F48HmDQyIuC%2BgdsN57yGwxTA2QKl3Okr5rJ5xdzjmp5HpxT%2BU1AshPf7a
+
+Cookies after step 1:
+
+=== Step 2 ===
+Encoded body length: 711 chars
+proof_type in body: proof_type%5D=1.+Dated+school+ID&dev_pack_form%5Bphoto_proof%5D=TEST_VALUE_123&dev_pack_form%5Bappli
+
+Prepared request:
+  URL: https://github.com/settings/education/developer_pack_applications
+  Method: POST
+  Headers:
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+    Accept-Encoding: gzip, deflate, br, zstd
+    Accept: text/vnd.turbo-stream.html, text/html, application/xhtml+xml
+    Connection: keep-alive
+    Accept-Language: en-GB,en-US;q=0.9,en;q=0.8,my;q=0.7
+    Sec-Ch-Ua: "Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"
+    Sec-Ch-Ua-Mobile: ?0
+    Sec-Ch-Ua-Platform: "Windows"
+    Sec-Fetch-Dest: document
+    Sec-Fetch-Mode: navigate
+    Sec-Fetch-Site: same-origin
+    Sec-Fetch-User: ?1
+    Upgrade-Insecure-Requests: 1
+    Cache-Control: max-age=0
+    Turbo-Frame: dev-pack-form
+    Origin: https://github.com
+    Referer: https://github.com/settings/education/benefits
+    Cookie: _gh_sess=yoT3rFvDEHqYLE5NqPrLbP%2FSWL%2F48HmDQyIuC%2BgdsN57yGwxTA2QKl3Okr5rJ5xdz
+    Content-Length: 711
+    Content-Type: application/x-www-form-urlencoded
+  Body length: 711
+  proof_type in body: proof_type%5D=1.+Dated+school+ID&dev_pack_form%5Bphoto_proof%5D=TEST_VALUE_123&dev_pack_form%5Bappli
+  photo_proof in body: photo_proof%5D=TEST_VALUE_123&dev_pack_form%5Bapplication_type%5D=student&dev_pa
+
+Step 2 response: 200
+Response headers:
+  Content-Type: text/vnd.turbo-stream.html; charset=utf-8
+Error: 
+  dev_pack_form[proof_type]: value='None' has_value_attr=False
+  dev_pack_form[photo_proof]: value='None' has_value_attr=False
+
+=== Validation messages ===

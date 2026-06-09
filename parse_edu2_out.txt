@@ -1,0 +1,24 @@
+Length: 15599
+Inline script: {"props":{"allowFileUpload":false,"formFieldId":"photo_proof"}}
+React partial: webcam-upload data={"props":{"allowFileUpload":false,"formFieldId":"photo_proof"}}
+
+Form action=/settings/education/developer_pack_applications enctype=None method=post
+  hidden: authenticity_token = QlBUkTRhVlyn27aaOcJf_2zvAHWqqZQECVmzVq3NLpZVwrHZHPmeT8qPJzdh
+  hidden: dev_pack_form[proof_type] = 
+  hidden: dev_pack_form[photo_proof] = 
+  hidden: dev_pack_form[application_type] = student
+  hidden: dev_pack_form[browser_location] = Yangon, Myanmar
+  hidden: dev_pack_form[form_variant] = initial_form
+  hidden: dev_pack_form[latitude] = 16.8661
+  hidden: dev_pack_form[location_shared] = true
+  hidden: dev_pack_form[longitude] = 96.1951
+  hidden: dev_pack_form[school_email] = thawkhant.1280@gmail.com
+  hidden: dev_pack_form[school_name] = SKT International College
+  hidden: dev_pack_form[utm_content] = 
+  hidden: dev_pack_form[utm_source] = 
+  hidden: dev_pack_form[form_variant] = upload_proof_form
+  submit: name=submit value=Submit Application
+
+=== Upload URLs ===
+
+=== All data-*-url attributes ===

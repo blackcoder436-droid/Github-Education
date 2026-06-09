@@ -1,0 +1,25 @@
+﻿Login: OK
+
+=== Account Emails ===
+Status: 200
+
+=== Education Form Emails ===
+Select found:
+  option: value='thawkhant.1280@gmail.com' text='thawkhant.1280@gmail.com'
+
+Email-related elements:
+  select: name=dev_pack_form[school_email] value=
+  select: id=js-developer-pack-application-email-selection-container
+
+=== Page messages ===
+  We require applicants ofto use one of these school-issues email addresses to apply:Show morePleaseadd and verify yourschool-issued email addressin your account settings -- or a contact email if you do
+  We require applicants ofto use one of these school-issues email addresses to apply:Show morePleaseadd and verify yourschool-issued email addressin your account settings -- or a contact email if you do
+  We require applicants ofto use one of these school-issues email addresses to apply:Show morePleaseadd and verify yourschool-issued email addressin your account settings -- or a contact email if you do
+
+=== School autocomplete ===
+Status: 200
+
+Saved edu_form_debug.html
+
+=== Email section HTML ===
+<select aria-describedby="validation-c446ad3e-f870-4741-9473-25a6b5d30ad2 caption-c446ad3e-f870-4741-9473-25a6b5d30ad2" aria-required="true" class="FormControl-select FormControl-medium" id="js-developer-pack-application-email-selection-container" name="dev_pack_form[school_email]"><option value="thawkhant.1280@gmail.com">thawkhant.1280@gmail.com</option></select>

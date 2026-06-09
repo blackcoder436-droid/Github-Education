@@ -1,0 +1,93 @@
+﻿File size: 163802
+  otpauth: 0 matches
+  totp: 0 matches
+  secret: 11 matches
+  setup.key: 1 matches
+  base32: 158 matches
+  qr: 10 matches
+  scan: 8 matches
+  authenticator: 10 matches
+  verify: 11 matches
+  recovery: 14 matches
+
+=== Main content (209 lines) ===
+  Please enable JavaScript to configure two-factor authentication.
+  Enable two-factor authentication (2FA)
+  Two-factor authentication (2FA) is now enabled for your GitHub account
+  Loading...
+  1
+  2
+  3
+  Setup authenticator app
+  Setup authenticator app
+  Authenticator apps and browser extensions like
+  1Password
+  ,
+  Authy
+  ,
+  Microsoft Authenticator
+  ,
+           etc. generate one-time passwords that are used as a second factor to verify your identity when prompted during 
+  Re-scan the QR code
+  Scan the QR code
+  Use an authenticator app or browser extension to scan.
+  Learn more about enabling 2FA
+  .
+  Unable to scan? You can use the
+  setup key
+  Your two-factor secret
+  to manually configure your authenticator app.
+  Verify the code from the app
+  Get authentication codes by SMS on your mobile phone when signing into GitHub.
+          Make sure that
+  your country or region is supported
+  for SMS delivery.
+  Verify account
+  Before setting up SMS, please verify that you're a human.
+  We were unable to send you a message via SMS. If the problem persists you
+          might consider enabling two-factor authentication with
+  with a password manager
+  .
+  Country or region code
+  United States +1
+  Aland Islands +358
+  Algeria +213
+  Angola +244
+  Anguilla +1264
+  Australia +61
+  Austria +43
+  Bahamas +1
+  Bahrain +973
+  Belarus +375
+  Belgium +32
+  Benin +229
+  Bolivia +591
+  Bosnia and Herzegovina +387
+  Brazil +55
+  Brunei +673
+  Bulgaria +359
+  Burundi +257
+  Cambodia +855
+  Canada +1
+  Cape Verde +238
+  Cayman Islands +1345
+  Christmas Island +61
+  Cocos +61
+  Congo, Dem Rep +243
+  Croatia +385
+  Cyprus +357
+  Czech Republic +420
+  Denmark +45
+  Dominica +1767
+  Dominican Republic +1
+  Ecuador +593
+  Equatorial Guinea +240
+  Estonia +372
+  Finland/Aland Islands +358
+  France +33
+  Gambia +220
+  Georgia +995
+  Germany +49
+  Ghana +233
+  Gibraltar +350
+  Greece +30

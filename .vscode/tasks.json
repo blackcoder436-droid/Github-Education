@@ -1,0 +1,326 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Education Test",
+			"type": "shell",
+			"command": "py run2.py",
+			"isBackground": false
+		},
+		{
+			"label": "Run Education V5",
+			"type": "shell",
+			"command": "py run2.py",
+			"isBackground": false
+		},
+		{
+			"label": "Run V5 Test",
+			"type": "shell",
+			"command": "py run2.py",
+			"isBackground": false
+		},
+		{
+			"label": "Run V5 Save Response",
+			"type": "shell",
+			"command": "py run2.py",
+			"isBackground": false
+		},
+		{
+			"label": "Run V6 Photo Tests",
+			"type": "shell",
+			"command": "py run2.py",
+			"isBackground": false
+		},
+		{
+			"label": "V6 Direct Run",
+			"type": "shell",
+			"command": "py -u pw_v6.py 2>&1",
+			"isBackground": false
+		},
+		{
+			"label": "Run Webcam JS Inspector",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "Webcam Chunks Inspector",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "Direct Webcam Chunks",
+			"type": "shell",
+			"command": "py -u pw_webcam_chunks.py 2>&1"
+		},
+		{
+			"label": "V7 Blob Tests",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "V8 Headed Mode",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "V9 Native Submit",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "Extract Chunks",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "V10 Webcam Interact",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "V11 JSON Submit",
+			"type": "shell",
+			"command": "py -u run2.py 2>&1"
+		},
+		{
+			"label": "run v12",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "run v13",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "run v13b",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "run v14",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v14-fresh",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v15-run",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v16-run",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v17-run",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v18-run",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v19-run",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v20-run",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v21",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v22",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v23",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "v24",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-js",
+			"type": "shell",
+			"command": "py.exe debug_js.py 2>&1 | Out-File -Encoding utf8 d:\\Project\\2026\\github\\step2_result.txt"
+		},
+		{
+			"label": "debug-js2",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v25",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v26",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-js2",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-js3",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-js4",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v27",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v28",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v29",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v30",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v31",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v32",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v33",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v34",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v35",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "edu-v35b",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu2",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3b",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3c",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3d",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3e",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3f",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3g",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "debug-step3h",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu-pw",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu-pw2",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu-pw3",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu-pw4",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu-pw5",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		},
+		{
+			"label": "test-edu-pw6",
+			"type": "shell",
+			"command": "py.exe run2.py"
+		}
+	]
+}

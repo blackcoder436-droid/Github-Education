@@ -1,0 +1,18 @@
+=== STDOUT ===
+Logging in...
+Logged in
+
+Running Education step...
+  School: Yangon Technological University
+  x step 3 failed: Your application cannot be reviewed until you fix the following: this field is required
+    Step 1 OK
+    Step 2 OK - campus question
+    Step3 radios found: 4, chosen: distant_course_work
+  Invalid fields: ['validation-504494c3-3a77-4044-9192-fa487a536275']
+  Form fields: ['authenticity_token=1ckSKFlnV62aIR0VsLL4mFaOYk7Num', 'dev_pack_form[far_from_campus_reason]=sem_class_not_started', 'dev_pack_form[far_from_campus_reason]=distant_course_work', 'dev_pack_form[far_from_campus_reason]=vpn', 'dev_pack_form[far_from_campus_reason]=other', 'dev_pack_form[other_reason_text]=', 'dev_pack_form[far_from_campus_proof]=', 'dev_pack_form[application_type]=student', 'dev_pack_form[browser_location]=', 'dev_pack_form[form_variant]=far_from_campus_proof_form', 'dev_pack_form[latitude]=16.8661', 'dev_pack_form[location_shared]=true', 'dev_pack_form[longitude]=96.1951', 'dev_pack_form[photo_proof]={"image":"data:image/jpeg;base', 'dev_pack_form[proof_type]=2. Dated official/unofficial t', 'dev_pack_form[school_email]=thawkhant.1280@gmail.com', 'dev_pack_form[school_name]=Yangon Technological Universit', 'dev_pack_form[utm_content]=', 'dev_pack_form[utm_source]=', 'dev_pack_form[form_variant]=far_from_campus_proof_form']
+
+Result: FAILED
+
+=== STDERR ===
+
+=== RETURN CODE: 0 ===

@@ -1,0 +1,67 @@
+Login: OK
+Saved form HTML (16327 bytes)
+
+=== React/JS embedded data ===
+{
+  "props": {
+    "applicationTypeSelectionClass": "js-dev-pack-application-type-selection",
+    "autoCompleteContainerId": "js-school-name-search-container",
+    "autoCompleteSearchClearButtonId": "js-school-name-search-clear",
+    "containerId": "js-school-name-list",
+    "developerPackApplicationSubmitButtonId": "js-developer-pack-application-submit-button",
+    "elementThatIsInitiallyHiddenClass": "js-dev-pack-application-initial-form-element",
+    "emailSelectionContainerId": "js-developer-pack-application-email-selection-container",
+    "inputId": "js-school-name-search",
+    "schoolChoice2faErrorElementId": "js-school-choice-2fa-error",
+    "schoolChoiceAllowlistedDomainsBannerContainerId": "js-chosen-school-has-allowlisted-domains-banner",
+    "schoolChoiceAllowlistedDomainsBannerSchoolNameId": "js-chosen-school-has-allowlisted-domains-banner-school-name",
+    "schoolChoiceCaptionElementId": "js-school-choice-caption",
+    "schoolChoiceDomainsListId": "js-chosen-school-domains-list",
+    "schoolChoiceFirstAllowlistedDomainId": "js-chosen-school-first-allowlisted-domain",
+    "schoolChoiceShowMoreDomainsButtonId": "js-chosen-school-domains-show-more",
+    "suggestedSchoolSelectButtonId": "js-suggested-school-select-button",
+    "triggerElementClass": "js-school-autocomplete-result-selection",
+    "locationSharedInputId": "js-developer-pack-application-location-shared-input"
+  }
+}
+{
+  "props": {
+    "locationSharedInputId": "js-developer-pack-application-location-shared-input",
+    "latitudeInputId": "js-developer-pack-application-latitude-input",
+    "longitudeInputId": "js-developer-pack-application-longitude-input"
+  }
+}
+
+=== Custom elements ===
+  <primer-text-field> attrs={'class': ['FormControl', 'width-full', 'FormControl--fullWidth']}
+  <auto-complete> attrs={'id': 'js-school-name-search-container', 'src': '/settings/education/developer_pack_applications/schools', 'for': 'js-school-name-list', 'data-view-component': 'true'}
+  <anchored-position> attrs={'anchor': 'js-school-name-search', 'side': 'outside-bottom', 'allow-out-of-bounds': '', 'id': 'js-school-name-list', 'popover': '', 'data-view-component': 'true', 'class': ['ActionListWrap', 'ActionListWrap--inset', 'Overlay', 'Overlay--height-auto', 'Overlay--width-auto', 'overflow-y-auto']}
+  <react-partial> attrs={'partial-name': 'education-schools-auto-complete', 'data-ssr': 'false', 'data-attempted-ssr': 'false', 'data-react-profiling': 'true'}
+  <x-banner> attrs={'data-dismiss-scheme': 'none', 'data-view-component': 'true'}
+  <primer-text-field> attrs={'class': ['FormControl', 'width-full', 'FormControl--fullWidth']}
+  <react-partial> attrs={'partial-name': 'browser-geo-location', 'data-ssr': 'false', 'data-attempted-ssr': 'false', 'data-react-profiling': 'true'}
+
+=== Data actions (JS event handlers) ===
+
+=== Submit button ===
+  button: name=None type=None text=''
+  button: name=None type=button text='Show more'
+    data-view-component=true
+  button: name=continue type=submit text='Continue'
+    data-disable-with=Continue
+    data-view-component=true
+
+=== Turbo frames ===
+  id=dev-pack-form src=None
+
+=== Form attributes ===
+  data-turbo=true
+  action=/settings/education/developer_pack_applications
+  accept-charset=['UTF-8']
+  method=post
+
+=== URL patterns in page ===
+
+=== School name area ===
+  auto-complete: {'id': 'js-school-name-search-container', 'src': '/settings/education/developer_pack_applications/schools', 'for': 'js-school-name-list', 'data-view-component': 'true'}
+    input: name=dev_pack_form[school_name] type=text value=

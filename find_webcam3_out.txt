@@ -1,0 +1,4 @@
+Login: OK
+Total JS files: 36
+
+Done!

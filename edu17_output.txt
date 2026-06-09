@@ -1,0 +1,70 @@
+Login: OK
+Benefits page: 200 161152 bytes
+
+=== ALL script tags ===
+  wp-runtime-fb2e7725b23e7c08.js
+  28839-632d00a964e8dbd5.js
+  49863-8861e351482cb073.js
+  34646-bc4bb033e1164ca1.js
+  environment-e2415e9c118059f2.js
+  runtime-helpers-3cd71e27e349021d.js
+  2966-25cb8e34b31306a4.js
+  96232-fb82336d69225835.js
+  41013-ac21ea90ed8590af.js
+  51210-185739338ae8119b.js
+  24387-6b7f5e596897eded.js
+  81683-740d112caee5baa9.js
+  46740-67b26b07132f218b.js
+  81751-aaa1687b311d9b3d.js
+  github-elements-b03340a48949734e.js
+  element-registry-9e799b115dbe41ba.js
+  react-core-5860ae2cdde78efe.js
+  react-lib-e74a1db7c21f7e74.js
+  29434-2774a83323075b9c.js
+  79039-9ce5da88e09eef89.js
+  61110-212553c409076913.js
+  2887-0e9a84f5dc250853.js
+  26533-6b8040883d16f6ae.js
+  62249-2895213a788d973c.js
+  54195-705a8bfd0247e553.js
+  54841-f360017e41e3b2e3.js
+  60481-f092b7fbcf4211fc.js
+  46287-3a392a5914d001c8.js
+  2498-083e234c75c79413.js
+  61075-47650057cbb78796.js
+  89627-21527eb471b15df9.js
+  49029-7e384f91a45df57b.js
+  99328-c540c990523b92a2.js
+  behaviors-01d4be4c98834668.js
+  38302-277be92deeed3c63.js
+  notifications-global-4c1d7ffc7e4545d2.js
+
+=== Module preloads ===
+
+=== All import references in JS ===
+
+=== Testing upload endpoints ===
+  POST /upload/policies/education: 422 <!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; con
+  POST /upload/policies/assets: 422 <!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; con
+  POST /upload/policies/developer-pack: 422 <!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; con
+  POST /settings/education/developer_pack_applications/upload: 422 <!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; con
+
+=== GitHub upload setup ===
+
+=== App JS bundles ===

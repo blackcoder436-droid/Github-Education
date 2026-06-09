@@ -1,0 +1,72 @@
+﻿Login: OK
+
+=== School search: 'SKT' ===
+Status: 200 Len: 14211
+Raw: <div data-selected-school-id="118171" data-school-name="SKT International College" data-two-factor-required="false" data-override-distance-limit="false" data-camera-required="true" data-email-domains="[]" data-user-too-far-from-school="true" data-user-has-email-for-school="true" data-test-selector="autocomplete-item-school-118171" role="option" data-autocomplete-value="SKT International College" data-view-component="true" class="ActionListItem js-school-autocomplete-result-selection">
+  <span cl
+
+=== School search: 'SKT International' ===
+Status: 200 Len: 620
+Raw: <div data-selected-school-id="118171" data-school-name="SKT International College" data-two-factor-required="false" data-override-distance-limit="false" data-camera-required="true" data-email-domains="[]" data-user-too-far-from-school="true" data-user-has-email-for-school="true" data-test-selector="autocomplete-item-school-118171" role="option" data-autocomplete-value="SKT International College" data-view-component="true" class="ActionListItem js-school-autocomplete-result-selection">
+  <span cl
+
+=== School search: 'skt' ===
+Status: 200 Len: 14211
+Raw: <div data-selected-school-id="118171" data-school-name="SKT International College" data-two-factor-required="false" data-override-distance-limit="false" data-camera-required="true" data-email-domains="[]" data-user-too-far-from-school="true" data-user-has-email-for-school="true" data-test-selector="autocomplete-item-school-118171" role="option" data-autocomplete-value="SKT International College" data-view-component="true" class="ActionListItem js-school-autocomplete-result-selection">
+  <span cl
+
+=== School search: 'International' ===
+Status: 200 Len: 54998
+Raw: <div data-selected-school-id="29543" data-school-name="Private School Bilingue Internationale" data-two-factor-required="false" data-override-distance-limit="false" data-camera-required="true" data-email-domains="[[&quot;ecole-privee-bilingue-internationale-montpellier.fr&quot;,false,&quot;MIXED_USE&quot;,&quot;DENYLISTED&quot;]]" data-user-too-far-from-school="true" data-user-has-email-for-school="false" data-test-selector="autocomplete-item-school-29543" role="option" data-autocomplete-value="
+
+=== Full email section ===
+  Banner: We require applicants of to use one of these school-issues email addresses to apply: Show more Please add and verify your school-issued email address in your account settings -- or a contact email if you do not have one. Once your email is verified, you can try applying again.
+    Link: /settings/emails text='add and verify yourschool-issued email address'
+  Banner: We require applicants of to use one of these school-issues email addresses to apply: Show more Please add and verify your school-issued email address in your account settings -- or a contact email if you do not have one. Once your email is verified, you can try applying again.
+    Link: /settings/emails text='add and verify yourschool-issued email address'
+  Banner: We require applicants of to use one of these school-issues email addresses to apply: Show more Please add and verify your school-issued email address in your account settings -- or a contact email if you do not have one. Once your email is verified, you can try applying again.
+    Link: /settings/emails text='add and verify yourschool-issued email address'
+
+=== Check for hidden school_id field ===
+  span: data-target= name=
+  span: data-target= name=
+  input: data-target=primer-text-field.inputElement  name=dev_pack_form[school_name]
+  span: data-target=primer-text-field.validationSuccessIcon name=
+  span: data-target=primer-text-field.validationErrorIcon name=
+  script: data-target=react-partial.embeddedData name=
+  div: data-target=react-partial.reactRoot name=
+  p: data-target=x-banner.titleText name=
+  span: data-target= name=
+  span: data-target= name=
+  input: data-target=primer-text-field.inputElement  name=dev_pack_form[browser_location]
+  span: data-target=primer-text-field.validationSuccessIcon name=
+  span: data-target=primer-text-field.validationErrorIcon name=
+  script: data-target=react-partial.embeddedData name=
+  div: data-target=react-partial.reactRoot name=
+
+All data attrs on form elements:
+  input name=dev_pack_form[school_name]: {'data-target': 'primer-text-field.inputElement '}
+  input name=dev_pack_form[school_name]: {'data-view-component': 'true'}
+  input name=dev_pack_form[browser_location]: {'data-target': 'primer-text-field.inputElement '}
+  button name=continue: {'data-disable-with': 'Continue', 'data-view-component': 'true'}
+
+=== Try submitting as regular POST ===
+
+Submitting (11 fields):
+  authenticity_token = EFaAD40WOwooDF5eC9deDkeW6eZzeF4k48JuXdlDK4rYFLFtg5vLlbXe7qSDyCfDzrKaui15JKNmE-Rk
+  dev_pack_form[school_name] = SKT International College
+  dev_pack_form[latitude] = 16.8661
+  dev_pack_form[longitude] = 96.1951
+  dev_pack_form[location_shared] = true
+  dev_pack_form[utm_source] = 
+  dev_pack_form[utm_content] = 
+  dev_pack_form[form_variant] = initial_form
+  dev_pack_form[browser_location] = Yangon, Myanmar
+  dev_pack_form[application_type] = student
+  dev_pack_form[school_email] = thawkhant.1280@gmail.com
+
+Regular POST: 200 url=https://github.com/settings/education/developer_pack_applications
+  Error: There was an error creating the discount request. Errors: There was a problem
+  Error: There was an error creating the discount request. Errors: There was a problem
+  Error: There was an error creating the discount request. Errors: There was a problem
+  There was an error creating the discount request. Errors: There was a problem

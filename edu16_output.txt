@@ -1,0 +1,21 @@
+Login: OK
+
+Downloading test image...
+Image: 200 4829 bytes
+Data URL length: 6463 chars
+
+=== Test 1: JPEG data URL ===
+  [jpeg_dataurl] Status: 200 Text: 
+
+=== Test 2: Raw base64 ===
+  [raw_b64] Status: 200 Text: 
+
+=== Test 3: PNG data URL ===
+  [png_dataurl] Status: 200 Text: 
+
+=== Test 4: Regular POST ===
+Step 1 regular: 200
+Step 2 regular: 200 Location: none
+  ERROR: Your application cannot be reviewed until you fix the following: this field is required
+  ERROR: Your application cannot be reviewed until you fix the following: this field is required
+  ERROR: Your application cannot be reviewed until you fix the following: this field is required

@@ -1,0 +1,36 @@
+Login: OK
+Token: ihQyowHUAjevVJvJ-lyF...
+
+Submitting with Turbo-Frame + continue button...
+Status: 200 Len: 15651
+
+Response text (0 lines):
+
+Forms found: 1
+  Form: action=/settings/education/developer_pack_applications enctype=
+
+File attachments: 0
+
+Turbo streams: 1
+  action=update target=dev-pack-form
+
+
+=== Try #2: Regular POST (no Turbo-Frame) ===
+Status: 200
+Location: none
+URL: https://github.com/settings/education/developer_pack_applications
+Saved edu_try2_200.html
+  Please select the type of academic enrollment proof you would like to provide
+  *
+  Select...
+  1. Dated school ID
+  2. Dated official/unofficial transcript
+  3. Dated enrollment letter on school letterhead
+  4. Dated class schedule for the semester
+  5. Dated syllabus for a class
+  6. Dated receipt from bursar
+  7. Dated scholarship/financial aid letter
+  8. Other (Example: Screenshot of school portal)
+  What helps with verification?
+  We can verify your application most easily when your proof includes your complete name, school name, and a current date. Dated school IDs, current tra
+  Submit Application

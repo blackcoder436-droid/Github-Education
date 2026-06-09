@@ -1,0 +1,71 @@
+﻿Login: OK
+
+New page: 200
+
+=== Form found ===
+Method: post
+Action: /settings/education/developer_pack_applications
+Enctype: None
+
+All inputs:
+  hidden: name='authenticity_token' value='_ADRJFWucde2GdbgHF9miAy96o0glshn5HVDdgf9K5VrxPtibFWDYr__KDB0lu1Iv_YkiVCsKBbHOSag'
+  radio: name='dev_pack_form[application_type]' value='faculty'
+  radio: name='dev_pack_form[application_type]' value='student'
+  text: name='dev_pack_form[school_name]' value='' data={'data-target': 'primer-text-field.inputElement '}
+  text: name='dev_pack_form[school_name]' value='' data={'data-view-component': 'true'}
+  select: name='dev_pack_form[school_email]' value=''
+  hidden: name='dev_pack_form[latitude]' value=''
+  hidden: name='dev_pack_form[longitude]' value=''
+  hidden: name='dev_pack_form[location_shared]' value=''
+  hidden: name='dev_pack_form[utm_source]' value=''
+  hidden: name='dev_pack_form[utm_content]' value=''
+  hidden: name='dev_pack_form[form_variant]' value='initial_form'
+  text: name='dev_pack_form[browser_location]' value='' data={'data-target': 'primer-text-field.inputElement '}
+
+Radio buttons:
+  dev_pack_form[application_type] = faculty 
+  dev_pack_form[application_type] = student 
+
+Labels:
+  for='dev_pack_form_application_type_faculty': Teacher
+  for='dev_pack_form_application_type_student': Student
+  for='js-school-name-search': What is the name of your school? *
+  for='js-developer-pack-application-email-selection-container': What is your school email address?*
+
+Auto-complete:
+  src=/settings/education/developer_pack_applications/schools
+    input: name=dev_pack_form[school_name] value=None type=text
+
+Flash messages on page:
+  We require applicants ofto use one of these school-issues email addresses to apply:Show morePleaseadd and verify yourschool-issued email addressin your account settings -- or a contact email if you do
+
+Extracted form data (9 fields):
+  authenticity_token = _ADRJFWucde2GdbgHF9miAy96o0glshn5HVDdgf9K5VrxPtibFWDYr__KDB0lu1Iv_YkiVCsKBbHOSag
+  dev_pack_form[school_name] = 
+  dev_pack_form[latitude] = 
+  dev_pack_form[longitude] = 
+  dev_pack_form[location_shared] = 
+  dev_pack_form[utm_source] = 
+  dev_pack_form[utm_content] = 
+  dev_pack_form[form_variant] = initial_form
+  dev_pack_form[browser_location] = 
+
+Final data to submit:
+  authenticity_token = _ADRJFWucde2GdbgHF9miAy96o0glshn5HVDdgf9K5VrxPtibFWDYr__KDB0lu1Iv_YkiVCsKBbHOSag
+  dev_pack_form[school_name] = SKT International College
+  dev_pack_form[latitude] = 16.8661
+  dev_pack_form[longitude] = 96.1951
+  dev_pack_form[location_shared] = true
+  dev_pack_form[utm_source] = 
+  dev_pack_form[utm_content] = 
+  dev_pack_form[form_variant] = initial_form
+  dev_pack_form[browser_location] = 
+  dev_pack_form[application_type] = student
+  dev_pack_form[school_email] = thawkhant.1280@gmail.com
+
+Submitting...
+Response: 200
+  ERROR: There was an error creating the discount request. Errors: There was a problem
+
+Response text (1 lines):
+  There was an error creating the discount request. Errors: There was a problem

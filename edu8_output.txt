@@ -1,0 +1,16 @@
+﻿Login: OK as thawkhant1280-00
+Profile: 200 login_redir=no
+
+=== Education form ===
+Status: 200 URL: https://github.com/settings/education/developer_pack_applications/new
+
+Submitting initial form...
+Status: 200
+Saved edu_step2_result.html
+
+Response (1 lines):
+  There was an error creating the discount request. Errors: There was a problem
+
+=== Forms ===
+
+=== File uploads ===

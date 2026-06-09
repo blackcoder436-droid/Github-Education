@@ -1,0 +1,35 @@
+Login: OK
+
+=== JS bundles ===
+  https://github.githubassets.com/assets/react-core-5860ae2cdde78efe.js
+  https://github.githubassets.com/assets/react-lib-e74a1db7c21f7e74.js
+
+Chunk scripts: 0
+
+=== Looking for webcam JS ===
+
+Step 1 (regular): 200
+
+All script srcs:
+
+Inline scripts with webcam/photo:
+  Found: {"props":{"allowFileUpload":false,"formFieldId":"photo_proof"}}...
+
+  webcam-upload.e66da9df6eb089e6.js: 404
+
+  chunk-webcam-upload.e66da9df6eb089e6.js: 404
+
+=== Asset URLs with 'webcam' or 'upload' ===
+  github.githubassets.com/assets/webcam-upload.e66da9df6eb089e6.module.css
+
+Chunk references: 0
+
+=== Searching for photo_proof in page ===
+  @12389: ...>{"props":{"allowFileUpload":false,"formFieldId":"photo_proof"}}</script>
+  <div data-target="react-partial.rea...
+  @12602: ...class="d-none">
+    <input autocomplete="off" id="photo_proof" class="FormField-input" type="hidden" name="dev_...
+  @12673: ...ormField-input" type="hidden" name="dev_pack_form[photo_proof]" />
+
+</div>
+    <div data-view-component="true" ...

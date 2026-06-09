@@ -1,0 +1,40 @@
+=== Validation elements ===
+  hidden=hidden parent= text=''
+  hidden= parent= text=''
+  hidden=None parent= text=''
+  hidden=None parent= text=''
+  hidden=None parent= text='this field is required'
+
+=== Form fields with values ===
+  hidden: authenticity_token = 'oylLEfq13Xxs0O2OnGpeTN301SVvbwjN3dqgyoBeJ-ARHsskLrEoBzH-7iHRNtfreEFBemc_bBth714T'
+  hidden: dev_pack_form[proof_type] = ''
+  hidden: dev_pack_form[photo_proof] = ''
+  hidden: dev_pack_form[application_type] = 'student'
+  hidden: dev_pack_form[browser_location] = 'Yangon, Myanmar'
+  hidden: dev_pack_form[form_variant] = 'upload_proof_form'
+  hidden: dev_pack_form[latitude] = '16.8661'
+  hidden: dev_pack_form[location_shared] = 'true'
+  hidden: dev_pack_form[longitude] = '96.1951'
+  hidden: dev_pack_form[school_email] = 'thawkhant.1280@gmail.com'
+  hidden: dev_pack_form[school_name] = 'SKT International College'
+  hidden: dev_pack_form[utm_content] = ''
+  hidden: dev_pack_form[utm_source] = ''
+  hidden: dev_pack_form[form_variant] = 'upload_proof_form'
+
+=== proof_type hidden input ===
+  value=''
+  attrs={'autocomplete': 'off', 'type': 'hidden', 'name': 'dev_pack_form[proof_type]'}
+
+=== photo_proof hidden input ===
+  value length=0
+  value preview=''
+
+=== Error banners ===
+  Your application cannot be reviewed until you fix the following: this field is required
+
+=== Photo proof section ===
+  sibling: Submit Application
+
+=== All visible error messages ===
+  Your application cannot be reviewed until you fix the following: this field is required
+  this field is required

@@ -1,0 +1,52 @@
+Login: OK
+
+=== Step 1: Initial form ===
+Step 1 response: 200
+Step 2 form found, token: 9t_N9-UCXh12Gg8DX3Q9...
+Test image: 335 bytes, data URL: 470 chars
+
+=== Step 2: Upload proof ===
+Submitting step 2 (14 fields):
+  authenticity_token = 9t_N9-UCXh12Gg8DX3Q9V3acbeHcIKNJwYQVkHM5xVJE6E3CMQarZis0DKwSKLTw0yn5vtRwx599setJ
+  dev_pack_form[proof_type] = 4. Dated class schedule for the semester
+  dev_pack_form[photo_proof] = [data URL, 470 chars]
+  dev_pack_form[application_type] = student
+  dev_pack_form[browser_location] = Yangon, Myanmar
+  dev_pack_form[form_variant] = upload_proof_form
+  dev_pack_form[latitude] = 16.8661
+  dev_pack_form[location_shared] = true
+  dev_pack_form[longitude] = 96.1951
+  dev_pack_form[school_email] = thawkhant.1280@gmail.com
+  dev_pack_form[school_name] = SKT International College
+  dev_pack_form[utm_content] = 
+  dev_pack_form[utm_source] = 
+  submit = Submit Application
+
+Step 2 response: 200 Len: 17366
+Saved edu_final_result.html
+
+Response (0 lines):
+
+
+=== Try regular POST for step 2 ===
+Step 1 (regular): 200 URL: https://github.com/settings/education/developer_pack_applications
+Step 2 (regular): 200
+Location: none
+  ERROR: Your application cannot be reviewed until you fix the following: this field is required
+  ERROR: Your application cannot be reviewed until you fix the following: this field is required
+  ERROR: Your application cannot be reviewed until you fix the following: this field is required
+  Your application cannot be reviewed until you fix the following: this field is required
+  Please select the type of academic enrollment proof you would like to provide
+  Select...
+  1. Dated school ID
+  2. Dated official/unofficial transcript
+  3. Dated enrollment letter on school letterhead
+  4. Dated class schedule for the semester
+  5. Dated syllabus for a class
+  6. Dated receipt from bursar
+  7. Dated scholarship/financial aid letter
+  8. Other (Example: Screenshot of school portal)
+  What helps with verification?
+  We can verify your application most easily when your proof includes your complete name, school name, and a current date. Dated school IDs, current tra
+  this field is required
+  Submit Application

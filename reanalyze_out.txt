@@ -1,0 +1,63 @@
+Login: True
+Form action: /settings/education/developer_pack_applications
+Form method: post
+
+Form elements (16):
+  <input> name='authenticity_token' type='hidden' value='glfL-KlUZvQhw4_gVjHo1i7B7HmshBr6Qw3O1ZeFUTrVo4PIGFcYRS17kCFOu43S6OszAwXB6GkUtbCs'
+  <input> name='dev_pack_form[application_type]' type='radio' value='faculty'
+  <input> name='dev_pack_form[application_type]' type='radio' value='student'
+  <input> name='dev_pack_form[school_name]' type='text' value=''
+  <input> name='dev_pack_form[school_name]' type='text' value=''
+  <button> name='' type='' value=''
+  <button> name='' type='button' value=''
+  <select> name='dev_pack_form[school_email]' type='' value=''
+  <input> name='dev_pack_form[latitude]' type='hidden' value=''
+  <input> name='dev_pack_form[longitude]' type='hidden' value=''
+  <input> name='dev_pack_form[location_shared]' type='hidden' value=''
+  <input> name='dev_pack_form[utm_source]' type='hidden' value=''
+  <input> name='dev_pack_form[utm_content]' type='hidden' value=''
+  <input> name='dev_pack_form[form_variant]' type='hidden' value='initial_form'
+  <input> name='dev_pack_form[browser_location]' type='text' value=''
+  <button> name='continue' type='submit' value='Continue'
+
+=== Submitting step 1 ===
+Step 1 response: 200, 19452 bytes
+
+Forms in response: 1
+
+--- Form 0 ---
+  action: /settings/education/developer_pack_applications
+  method: post
+  class: None
+  id: None
+  data-turbo-frame: None
+  Elements (21):
+    <input> name='authenticity_token' type='hidden' value='GWyO4N52wgdq2J2OTAVlAQnPK7V_gKTmN_OBINMo2VJOmMbQb3W8tmZggk9UjwAFz-X0z9bFVnVgS_9ZMip4lA' id=''
+    <input> name='dev_pack_form[application_type]' type='radio' value='faculty' id='dev_pack_form_application_type_faculty'
+    <input> name='dev_pack_form[application_type]' type='radio' value='student' id='dev_pack_form_application_type_student'
+    <input> name='dev_pack_form[school_name]' type='text' value='' id='dev_pack_form_school_name'
+    <input> name='dev_pack_form[school_name]' type='text' value='' id='js-school-name-search'
+    <button> name='' type='' value='' id='js-school-name-search-clear'
+    <button> name='' type='button' value='' id='js-chosen-school-domains-show-more'
+    <select> name='dev_pack_form[school_email]' type='' value='' id='js-developer-pack-application-email-selection-container'
+    <input> name='dev_pack_form[latitude]' type='hidden' value='' id='js-developer-pack-application-latitude-input'
+    <input> name='dev_pack_form[longitude]' type='hidden' value='' id='js-developer-pack-application-longitude-input'
+    <input> name='dev_pack_form[location_shared]' type='hidden' value='' id='js-developer-pack-application-location-shared-input'
+    <input> name='dev_pack_form[browser_location]' type='hidden' value='' id='dev_pack_form_browser_location'
+    <input> name='dev_pack_form[form_variant]' type='hidden' value='initial_form' id='dev_pack_form_form_variant'
+    <input> name='dev_pack_form[latitude]' type='hidden' value='' id='dev_pack_form_latitude'
+    <input> name='dev_pack_form[location_shared]' type='hidden' value='' id='dev_pack_form_location_shared'
+    <input> name='dev_pack_form[longitude]' type='hidden' value='' id='dev_pack_form_longitude'
+    <input> name='dev_pack_form[utm_content]' type='hidden' value='' id='dev_pack_form_utm_content'
+    <input> name='dev_pack_form[utm_source]' type='hidden' value='' id='dev_pack_form_utm_source'
+    <input> name='dev_pack_form[form_variant]' type='hidden' value='initial_form' id='dev_pack_form_form_variant'
+    <input> name='dev_pack_form[browser_location]' type='text' value='' id='dev_pack_form_browser_location'
+    <button> name='continue' type='submit' value='Continue' id='js-developer-pack-application-submit-button' DISABLED
+
+Action menus: 0
+
+React partials: 2
+  Partial: education-schools-auto-complete
+    Props: {"props":{"applicationTypeSelectionClass":"js-dev-pack-application-type-selection","autoCompleteContainerId":"js-school-name-search-container","autoCompleteSearchClearButtonId":"js-school-name-search-
+  Partial: browser-geo-location
+    Props: {"props":{"locationSharedInputId":"js-developer-pack-application-location-shared-input","latitudeInputId":"js-developer-pack-application-latitude-input","longitudeInputId":"js-developer-pack-applicati
