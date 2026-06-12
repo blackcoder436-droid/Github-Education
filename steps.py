@@ -52,7 +52,6 @@ class ProfileUpdater:
             ("Profile Name", self.step_profile),
             ("Profile Photo", self.step_avatar),
             ("Billing Info", self.step_billing),
-            ("Two-Factor Auth", self.step_2fa),
             ("Education Benefits", self.step_education),
         ]
 
@@ -716,21 +715,41 @@ class ProfileUpdater:
         print(f"  Generating student ID card...")
 
         # === Generate Student ID Card ===
-        # Get GitHub profile photo
-        profile_resp = self.client.get("/settings/profile")
-        soup = BeautifulSoup(profile_resp.text, "html.parser")
-        avatar_img = soup.find("img", class_=lambda x: x and "avatar" in x)
+        # Try to get Face Studio photo first, then fallback to GitHub avatar
         photo_bytes = None
         
-        if avatar_img:
-            avatar_src = avatar_img.get("src", "").strip()
-            if avatar_src and avatar_src.startswith("http"):
-                try:
-                    avatar_resp = requests.get(avatar_src, timeout=15)
-                    if avatar_resp.status_code == 200:
-                        photo_bytes = avatar_resp.content
-                except Exception as e:
-                    print(f"    Warning: Could not fetch avatar: {e}")
+        # Try Face Studio API
+        facestudio_key = os.environ.get("FACESTUDIO_API_KEY", "").strip()
+        if facestudio_key:
+            try:
+                print(f"    Generating Face Studio photo...")
+                face_resp = requests.post(
+                    "https://facestud.io/v1/generate",
+                    headers={"Authorization": f"Bearer {facestudio_key}"},
+                    timeout=30,
+                )
+                if face_resp.status_code == 200:
+                    photo_bytes = face_resp.content
+                    print(f"    Face Studio photo obtained ({len(photo_bytes)} bytes)")
+            except Exception as e:
+                print(f"    Face Studio failed: {e}")
+        
+        # Fallback to GitHub avatar if Face Studio not available
+        if not photo_bytes:
+            try:
+                profile_resp = self.client.get("/settings/profile")
+                soup = BeautifulSoup(profile_resp.text, "html.parser")
+                avatar_img = soup.find("img", class_=lambda x: x and "avatar" in x)
+                
+                if avatar_img:
+                    avatar_src = avatar_img.get("src", "").strip()
+                    if avatar_src and avatar_src.startswith("http"):
+                        avatar_resp = requests.get(avatar_src, timeout=15)
+                        if avatar_resp.status_code == 200:
+                            photo_bytes = avatar_resp.content
+                            print(f"    GitHub avatar obtained ({len(photo_bytes)} bytes)")
+            except Exception as e:
+                print(f"    GitHub avatar failed: {e}")
 
         # Extract name (first + last only, 2 parts)
         name_parts = self.profile["full_name"].split()
@@ -775,16 +794,18 @@ class ProfileUpdater:
         # Transfer cookies to Playwright
         cookies_for_pw = []
         for c in self.client.session.cookies:
+            domain = c.domain or ".github.com"
+            # Ensure URL is always set for Playwright
+            if domain.startswith("."):
+                url = f"https://github.com{c.path or '/'}"
+            else:
+                url = f"https://{domain}{c.path or '/'}"
+            
             entry = {
                 "name": c.name,
                 "value": c.value,
-                "path": c.path or "/",
+                "url": url,
             }
-            domain = c.domain or ".github.com"
-            if domain.startswith("."):
-                entry["domain"] = domain
-            else:
-                entry["url"] = f"https://{domain}{c.path or '/'}"
             if c.secure is not None:
                 entry["secure"] = bool(c.secure)
             cookies_for_pw.append(entry)

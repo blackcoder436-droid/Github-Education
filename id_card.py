@@ -35,11 +35,11 @@ def generate_id_card(
     issue_year=2026,
     address=None,
     mobile=None,
-    width=400,
-    height=600,
+    width=500,
+    height=700,
 ):
     """
-    Generate student ID card image.
+    Generate professional student ID card image.
     
     Args:
         name: Full name (e.g., "Min Ko")
@@ -64,74 +64,112 @@ def generate_id_card(
     mobile = mobile or generate_myanmar_phone()
     address = address or "Yangon, Myanmar"
 
-    # Create card background
-    card = Image.new("RGB", (width, height), color=(240, 240, 245))
+    # Create card background (white)
+    card = Image.new("RGB", (width, height), color=(255, 255, 255))
     draw = ImageDraw.Draw(card)
 
-    # Try to use basic fonts (fallback to default)
+    # Try to use better fonts
     try:
-        title_font = ImageFont.truetype("arial.ttf", 20)
-        name_font = ImageFont.truetype("arial.ttf", 16)
-        label_font = ImageFont.truetype("arial.ttf", 12)
-        small_font = ImageFont.truetype("arial.ttf", 10)
+        title_font = ImageFont.truetype("arial.ttf", 28)
+        heading_font = ImageFont.truetype("arial.ttf", 18)
+        name_font = ImageFont.truetype("arial.ttf", 20)
+        label_font = ImageFont.truetype("arial.ttf", 14)
+        small_font = ImageFont.truetype("arial.ttf", 12)
     except:
         title_font = ImageFont.load_default()
+        heading_font = ImageFont.load_default()
         name_font = ImageFont.load_default()
         label_font = ImageFont.load_default()
         small_font = ImageFont.load_default()
 
-    # Draw header with school name
-    draw.rectangle([(0, 0), (width, 60)], fill=(25, 118, 210))  # Blue header
-    draw.text((width // 2, 20), school_name, fill=(255, 255, 255), font=title_font, anchor="mm")
+    # === TOP HEADER SECTION ===
+    draw.rectangle([(0, 0), (width, 80)], fill=(15, 75, 150))  # Dark blue header
+    draw.text((width // 2, 25), school_name, fill=(255, 255, 255), font=title_font, anchor="mm")
+    draw.text((width // 2, 60), "STUDENT IDENTIFICATION CARD", fill=(200, 220, 255), font=label_font, anchor="mm")
 
-    y_offset = 80
+    # === PHOTO SECTION ===
+    photo_x = 30
+    photo_y = 110
+    photo_size = 160
 
-    # Logo (if provided)
-    if logo_bytes:
-        try:
-            logo = Image.open(io.BytesIO(logo_bytes))
-            logo.thumbnail((60, 60), Image.Resampling.LANCZOS)
-            card.paste(logo, (20, y_offset))
-        except:
-            pass
-
-    # Photo
+    # Placeholder or actual photo
     if photo_bytes:
         try:
             photo = Image.open(io.BytesIO(photo_bytes))
-            photo.thumbnail((120, 150), Image.Resampling.LANCZOS)
-            photo_x = (width - 120) // 2
-            card.paste(photo, (photo_x, y_offset + 10))
-        except:
-            pass
+            photo = photo.convert("RGB")
+            photo.thumbnail((photo_size, photo_size), Image.Resampling.LANCZOS)
+            # Center photo
+            paste_x = photo_x + (photo_size - photo.width) // 2
+            paste_y = photo_y + (photo_size - photo.height) // 2
+            card.paste(photo, (paste_x, paste_y))
+        except Exception as e:
+            # Gray placeholder if photo fails
+            draw.rectangle([(photo_x, photo_y), (photo_x + photo_size, photo_y + photo_size)], fill=(220, 220, 220))
+    else:
+        # Gray placeholder
+        draw.rectangle([(photo_x, photo_y), (photo_x + photo_size, photo_y + photo_size)], fill=(220, 220, 220))
 
-    y_offset += 170
+    # Photo border
+    draw.rectangle([(photo_x - 2, photo_y - 2), (photo_x + photo_size + 2, photo_y + photo_size + 2)], outline=(0, 0, 0), width=2)
 
-    # Student info
-    draw.text((20, y_offset), f"Name:", fill=(0, 0, 0), font=label_font)
-    draw.text((100, y_offset), name, fill=(0, 0, 0), font=name_font)
-    y_offset += 30
+    # === INFO SECTION (right of photo) ===
+    info_x = photo_x + photo_size + 40
+    info_y = photo_y
 
-    draw.text((20, y_offset), f"Class:", fill=(0, 0, 0), font=label_font)
-    draw.text((100, y_offset), f"Class {class_num}", fill=(0, 0, 0), font=name_font)
-    y_offset += 30
+    # Name (prominent)
+    draw.text((info_x, info_y), "Name:", fill=(15, 75, 150), font=label_font)
+    draw.text((info_x, info_y + 28), name, fill=(0, 0, 0), font=name_font)
+    
+    info_y += 75
 
-    draw.text((20, y_offset), f"Roll:", fill=(0, 0, 0), font=label_font)
-    draw.text((100, y_offset), str(roll_num), fill=(0, 0, 0), font=name_font)
-    y_offset += 30
+    # Student ID / Roll
+    draw.text((info_x, info_y), "Roll No:", fill=(15, 75, 150), font=label_font)
+    draw.text((info_x, info_y + 28), f"{roll_num:06d}", fill=(0, 0, 0), font=name_font)
 
-    draw.text((20, y_offset), f"Date of Birth:", fill=(0, 0, 0), font=label_font)
-    draw.text((140, y_offset), dob, fill=(0, 0, 0), font=name_font)
-    y_offset += 30
+    info_y += 75
 
-    draw.text((20, y_offset), f"Year:", fill=(0, 0, 0), font=label_font)
-    draw.text((100, y_offset), str(issue_year), fill=(0, 0, 0), font=name_font)
-    y_offset += 40
+    # Class
+    draw.text((info_x, info_y), "Class:", fill=(15, 75, 150), font=label_font)
+    draw.text((info_x, info_y + 28), f"{class_num}", fill=(0, 0, 0), font=name_font)
 
-    # Footer section
-    draw.rectangle([(0, y_offset), (width, height)], fill=(25, 118, 210))  # Blue footer
-    draw.text((20, y_offset + 10), f"Address: {address}", fill=(255, 255, 255), font=small_font)
-    draw.text((20, y_offset + 30), f"Mobile: {mobile}", fill=(255, 255, 255), font=small_font)
+    # === BOTTOM SECTION ===
+    y_offset = photo_y + photo_size + 30
+
+    # Separator line
+    draw.rectangle([(20, y_offset), (width - 20, y_offset + 2)], fill=(15, 75, 150))
+
+    y_offset += 20
+
+    # Details section (2 columns)
+    left_x = 30
+    right_x = width // 2 + 20
+
+    # Left column
+    draw.text((left_x, y_offset), "Date of Birth:", fill=(15, 75, 150), font=label_font)
+    draw.text((left_x, y_offset + 25), dob, fill=(0, 0, 0), font=small_font)
+
+    draw.text((left_x, y_offset + 55), "Issue Year:", fill=(15, 75, 150), font=label_font)
+    draw.text((left_x, y_offset + 80), str(issue_year), fill=(0, 0, 0), font=small_font)
+
+    # Right column
+    draw.text((right_x, y_offset), "Address:", fill=(15, 75, 150), font=label_font)
+    # Wrap address if too long
+    addr_lines = [address[i:i+30] for i in range(0, len(address), 30)]
+    addr_y = y_offset + 25
+    for line in addr_lines:
+        draw.text((right_x, addr_y), line, fill=(0, 0, 0), font=small_font)
+        addr_y += 20
+
+    draw.text((right_x, y_offset + 55), "Mobile:", fill=(15, 75, 150), font=label_font)
+    draw.text((right_x, y_offset + 80), mobile, fill=(0, 0, 0), font=small_font)
+
+    # === FOOTER ===
+    y_offset += 130
+    draw.rectangle([(0, y_offset), (width, height)], fill=(240, 245, 250))
+    draw.line([(0, y_offset), (width, y_offset)], fill=(15, 75, 150), width=2)
+    
+    draw.text((width // 2, y_offset + 15), "Valid for Educational Purposes", fill=(100, 100, 100), font=small_font, anchor="mm")
+    draw.text((width // 2, y_offset + 40), f"Issued: {issue_year}", fill=(100, 100, 100), font=small_font, anchor="mm")
 
     return card
 
