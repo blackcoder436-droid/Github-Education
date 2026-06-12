@@ -715,41 +715,22 @@ class ProfileUpdater:
         print(f"  Generating student ID card...")
 
         # === Generate Student ID Card ===
-        # Try to get Face Studio photo first, then fallback to GitHub avatar
+        # Use GitHub profile photo for ID card
+        profile_resp = self.client.get("/settings/profile")
+        soup = BeautifulSoup(profile_resp.text, "html.parser")
+        avatar_img = soup.find("img", class_=lambda x: x and "avatar" in x)
         photo_bytes = None
         
-        # Try Face Studio API
-        facestudio_key = os.environ.get("FACESTUDIO_API_KEY", "").strip()
-        if facestudio_key:
-            try:
-                print(f"    Generating Face Studio photo...")
-                face_resp = requests.post(
-                    "https://facestud.io/v1/generate",
-                    headers={"Authorization": f"Bearer {facestudio_key}"},
-                    timeout=30,
-                )
-                if face_resp.status_code == 200:
-                    photo_bytes = face_resp.content
-                    print(f"    Face Studio photo obtained ({len(photo_bytes)} bytes)")
-            except Exception as e:
-                print(f"    Face Studio failed: {e}")
-        
-        # Fallback to GitHub avatar if Face Studio not available
-        if not photo_bytes:
-            try:
-                profile_resp = self.client.get("/settings/profile")
-                soup = BeautifulSoup(profile_resp.text, "html.parser")
-                avatar_img = soup.find("img", class_=lambda x: x and "avatar" in x)
-                
-                if avatar_img:
-                    avatar_src = avatar_img.get("src", "").strip()
-                    if avatar_src and avatar_src.startswith("http"):
-                        avatar_resp = requests.get(avatar_src, timeout=15)
-                        if avatar_resp.status_code == 200:
-                            photo_bytes = avatar_resp.content
-                            print(f"    GitHub avatar obtained ({len(photo_bytes)} bytes)")
-            except Exception as e:
-                print(f"    GitHub avatar failed: {e}")
+        if avatar_img:
+            avatar_src = avatar_img.get("src", "").strip()
+            if avatar_src and avatar_src.startswith("http"):
+                try:
+                    avatar_resp = requests.get(avatar_src, timeout=15)
+                    if avatar_resp.status_code == 200:
+                        photo_bytes = avatar_resp.content
+                        print(f"    GitHub avatar obtained ({len(photo_bytes)} bytes)")
+                except Exception as e:
+                    print(f"    GitHub avatar failed: {e}")
 
         # Extract name (first + last only, 2 parts)
         name_parts = self.profile["full_name"].split()
